@@ -77,7 +77,7 @@ numberOfMissingValues <- sum(is.na(df$steps))
 
 Turns out that there are `r numberOfMissingValues` missing values in the steps column.
 
-The next piece of codes replaces missing steps values with the average for that interval across days and places it in a data frame called dfExtension
+The next piece of codes replaces missing steps values with the average for that interval across all days and places it in a data frame called dfImputed
 
 
 ```{r}
@@ -98,7 +98,7 @@ byDaySummaryImputed <- ddply(dfImputed, .(date), summarise, stepsPerDay = sum(st
 hist(byDaySummaryImputed$stepsPerDay,
      breaks = 30,
      col="blue",
-     main = "Steps taken per day",
+     main = "Steps taken per day with imputed values for missing values",
      xlab = "Number of steps")
 meanStepsPerDayImputed <- round(mean(byDaySummaryImputed$stepsPerDay))
 medianStepsPerDayImputed <- round(median(byDaySummaryImputed$stepsPerDay))
@@ -114,7 +114,7 @@ This is significantly different from our original results when we ignored NAs. B
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-Now we want to compare acticity difference between weekdays and weekends. First we need to create a suitable factor variable from the date column.
+Now we want to compare activity difference between weekdays and weekends. First we need to create a suitable factor variable from the date column.
 
 ```{r}
 df$DayOfWeek <- as.factor(weekdays(as.Date(df$date)))
