@@ -20,7 +20,7 @@ Next we load the plyr library and use the ddply function to create
 ```r
 library(plyr)
 
-byDaySummary <- ddply(df, .(date), summarise, stepsPerDay = sum(steps, na.rm = TRUE))
+byDaySummary <- ddply(df, .(date), summarise, stepsPerDay = sum(steps))
 
 byIntervalSummary <- ddply(df, .(interval), summarise, averageStepsPerInterval = mean(steps, 
     na.rm = TRUE))
@@ -49,14 +49,14 @@ hist(byDaySummary$stepsPerDay, breaks = 30, col = "blue", main = "Steps taken pe
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
 ```r
-meanStepsPerDay <- round(mean(byDaySummary$stepsPerDay))
-medianStepsPerDay <- round(median(byDaySummary$stepsPerDay))
+meanStepsPerDay <- round(mean(byDaySummary$stepsPerDay, na.rm = TRUE))
+medianStepsPerDay <- round(median(byDaySummary$stepsPerDay, na.rm = TRUE))
 ```
 
 
-The mean number of steps per day is 9354
+The mean number of steps per day is 1.0766 &times; 10<sup>4</sup>
 
-The median number of steps per day is 1.0395 &times; 10<sup>4</sup>
+The median number of steps per day is 1.0765 &times; 10<sup>4</sup>
 
 
 ## What is the average daily activity pattern?
@@ -137,7 +137,6 @@ The mean number of steps per day is 1.0766 &times; 10<sup>4</sup>
 
 The median number of steps per day is 1.0766 &times; 10<sup>4</sup>
 
-This is significantly different from our original results when we ignored NAs. Both the mean number of steps and the median number of steps are higher when using an imputed values of interval average in place of NA.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
